@@ -19,14 +19,14 @@ from .sse_client import run_sse_client
 from .sse_server import SseServerSettings, run_sse_server
 
 LOG_LEVEL_MAP = {
-    'DEBUG': logging.DEBUG,
-    'INFO': logging.INFO,
-    'WARNING': logging.WARNING,
-    'ERROR': logging.ERROR,
-    'CRITICAL': logging.CRITICAL,
+    "DEBUG": logging.DEBUG,
+    "INFO": logging.INFO,
+    "WARNING": logging.WARNING,
+    "ERROR": logging.ERROR,
+    "CRITICAL": logging.CRITICAL,
 }
 
-log_level = LOG_LEVEL_MAP.get(os.getenv('LOG_LEVEL', '').upper(), logging.DEBUG)
+log_level = LOG_LEVEL_MAP.get(os.getenv("LOG_LEVEL", "").upper(), logging.DEBUG)
 logging.basicConfig(level=log_level)
 
 SSE_URL: t.Final[str | None] = os.getenv(
