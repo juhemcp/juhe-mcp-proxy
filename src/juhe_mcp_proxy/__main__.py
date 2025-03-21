@@ -29,6 +29,9 @@ LOG_LEVEL_MAP = {
 log_level = LOG_LEVEL_MAP.get(os.getenv("LOG_LEVEL", "").upper(), logging.DEBUG)
 logging.basicConfig(level=log_level)
 
+# 创建专门的 logger 实例
+logger = logging.getLogger(__name__)
+
 SSE_URL: t.Final[str | None] = os.getenv(
     "SSE_URL",
     None,
@@ -126,7 +129,7 @@ def main() -> None:
         or args.command_or_url.startswith("https://")
     ):
         # Start a client connected to the SSE server, and expose as a stdio server
-        logging.debug("Starting SSE client and stdio server")
+        logger.debug("Starting SSE client and stdio server")
         headers = dict(args.headers)
         if api_access_token := os.getenv("API_ACCESS_TOKEN", None):
             headers["Authorization"] = f"Bearer {api_access_token}"
@@ -134,7 +137,7 @@ def main() -> None:
         return
 
     # Start a client connected to the given command, and expose as an SSE server
-    logging.debug("Starting stdio client and SSE server")
+    logger.debug("Starting stdio client and SSE server")
 
     # The environment variables passed to the server process
     env: dict[str, str] = {}
